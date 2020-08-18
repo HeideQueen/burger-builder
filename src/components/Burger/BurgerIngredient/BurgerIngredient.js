@@ -13,8 +13,8 @@ const BurgerIngredient = ({ type }) => {
     case 'bread-top':
       ingredient = (
         <div className={classes.BreadTop}>
-          <div className='Seeds1'></div>
-          <div className='Seeds2'></div>
+          <div className={classes.Seeds1}></div>
+          <div className={classes.Seeds2}></div>
         </div>
       );
       break;
@@ -34,11 +34,7 @@ const BurgerIngredient = ({ type }) => {
       ingredient = null;
   }
 
-  return (
-    <div>
-      <h1>konlulu~</h1>
-    </div>
-  );
+  return ingredient;
 };
 
 BurgerIngredient.propTypes = {
