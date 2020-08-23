@@ -3,7 +3,6 @@ import React from 'react';
 import BurgerIngredient from './BurgerIngredient/BurgerIngredient';
 
 import classes from './Burger.module.css';
-import { array } from 'prop-types';
 
 const Burger = ({ ingredients }) => {
   let transformedIngredients = Object.keys(ingredients)
