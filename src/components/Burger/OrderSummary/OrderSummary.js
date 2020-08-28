@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 
 import Button from '../../UI/Button/Button';
 
-const OrderSummary = ({ ingredients, continueOrder, cancelOrder }) => {
+const OrderSummary = ({ ingredients, continueOrder, cancelOrder, total }) => {
   const ingredientSummary = Object.keys(ingredients).map((igKey) => (
     <li key={igKey}>
       <span style={{ textTransform: 'capitalize' }}>{igKey}</span>:{' '}
@@ -15,6 +15,9 @@ const OrderSummary = ({ ingredients, continueOrder, cancelOrder }) => {
       <h3>Your Order</h3>
       <p>A delicious burger with the following ingredients:</p>
       <ul>{ingredientSummary}</ul>
+      <p>
+        <strong>Total Price: ${total.toFixed(2)}</strong>
+      </p>
       <p>Continue to Checkout?</p>
       <Button btnType='Danger' clicked={cancelOrder}>
         CANCEL
