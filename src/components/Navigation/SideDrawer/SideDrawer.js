@@ -8,7 +8,9 @@ import classes from './SideDrawer.module.css';
 const SideDrawer = () => {
   return (
     <div className={classes.SideDrawer}>
-      <Logo />
+      <div className={classes.Logo}>
+        <Logo />
+      </div>
       <nav>
         <NavigationItems />
       </nav>

@@ -4,9 +4,9 @@ import burgerLogo from '../../assets/images/burger-logo.png';
 
 import classes from './Logo.module.css';
 
-const Logo = () => {
+const Logo = ({ height }) => {
   return (
-    <div className={classes.Logo}>
+    <div className={classes.Logo} style={{ height: height }}>
       <img src={burgerLogo} alt='burger logo' />
     </div>
   );
