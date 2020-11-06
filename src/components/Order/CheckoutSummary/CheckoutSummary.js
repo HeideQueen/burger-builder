@@ -5,7 +5,11 @@ import Button from '../../UI/Button/Button';
 
 import classes from './CheckoutSummary.module.css';
 
-const CheckoutSummary = ({ ingredients }) => {
+const CheckoutSummary = ({
+  ingredients,
+  checkoutCanceled,
+  checkoutContinue,
+}) => {
   return (
     <div className={classes.CheckoutSummary}>
       <h1>We hope it tastes well!</h1>
@@ -18,10 +22,10 @@ const CheckoutSummary = ({ ingredients }) => {
         <Burger ingredients={ingredients} />
       </div>
 
-      <Button btnType='Danger' clicked>
+      <Button btnType='Danger' clicked={checkoutCanceled}>
         CANCEL
       </Button>
-      <Button btnType='Success' clicked>
+      <Button btnType='Success' clicked={checkoutContinue}>
         CONTINUE
       </Button>
     </div>
