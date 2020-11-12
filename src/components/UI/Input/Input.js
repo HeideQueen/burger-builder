@@ -24,6 +24,21 @@ function Input({ label, elementType, elementConfig, value }) {
         />
       );
       break;
+    case 'select':
+      inputElement = (
+        <select
+          className={classes.InputElement}
+          {...elementConfig}
+          value={value}
+        >
+          {elementConfig.options.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.displayValue}
+            </option>
+          ))}
+        </select>
+      );
+      break;
     default:
       inputElement = (
         <input
