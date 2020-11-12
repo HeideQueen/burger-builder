@@ -2,7 +2,7 @@ import React from 'react';
 
 import classes from './Input.module.css';
 
-function Input({ label, elementType, elementConfig, value }) {
+function Input({ label, elementType, elementConfig, value, changed }) {
   let inputElement = null;
 
   switch (elementType) {
@@ -12,6 +12,7 @@ function Input({ label, elementType, elementConfig, value }) {
           className={classes.InputElement}
           {...elementConfig}
           value={value}
+          onChange={changed}
         />
       );
       break;
@@ -21,6 +22,7 @@ function Input({ label, elementType, elementConfig, value }) {
           className={classes.InputElement}
           {...elementConfig}
           value={value}
+          onChange={changed}
         />
       );
       break;
@@ -30,6 +32,7 @@ function Input({ label, elementType, elementConfig, value }) {
           className={classes.InputElement}
           {...elementConfig}
           value={value}
+          onChange={changed}
         >
           {elementConfig.options.map((option) => (
             <option key={option.value} value={option.value}>
@@ -45,6 +48,7 @@ function Input({ label, elementType, elementConfig, value }) {
           className={classes.InputElement}
           {...elementConfig}
           value={value}
+          onChange={changed}
         />
       );
   }
