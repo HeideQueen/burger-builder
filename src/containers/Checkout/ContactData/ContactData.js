@@ -17,6 +17,9 @@ class ContactData extends Component {
           placeholder: 'Your name',
         },
         value: '',
+        validation: {
+          required: true,
+        },
       },
       street: {
         elementType: 'input',
@@ -25,6 +28,9 @@ class ContactData extends Component {
           placeholder: 'Your street',
         },
         value: '',
+        validation: {
+          required: true,
+        },
       },
       zipCode: {
         elementType: 'input',
@@ -33,6 +39,9 @@ class ContactData extends Component {
           placeholder: 'Your zipcode',
         },
         value: '',
+        validation: {
+          required: true,
+        },
       },
       country: {
         elementType: 'input',
@@ -41,6 +50,9 @@ class ContactData extends Component {
           placeholder: 'Your country',
         },
         value: '',
+        validation: {
+          required: true,
+        },
       },
       email: {
         elementType: 'input',
@@ -49,6 +61,9 @@ class ContactData extends Component {
           placeholder: 'Your email',
         },
         value: '',
+        validation: {
+          required: true,
+        },
       },
       deliveryMethod: {
         elementType: 'select',
@@ -59,6 +74,9 @@ class ContactData extends Component {
           ],
         },
         value: '',
+        validation: {
+          required: true,
+        },
       },
     },
     loading: false,
@@ -67,10 +85,19 @@ class ContactData extends Component {
   orderHandler = (e) => {
     e.preventDefault();
 
+    const formData = {};
+
+    for (let formElementIdentifier in this.state.orderForm) {
+      formData[formElementIdentifier] = this.state.orderForm[
+        formElementIdentifier
+      ].value;
+    }
+
     this.setState({ loading: true });
     const order = {
       ingredients: this.props.ingredients,
       price: this.props.price,
+      orderData: formData,
     };
     axios
       .post('/orders.json', order)
@@ -109,7 +136,7 @@ class ContactData extends Component {
     }
 
     let form = (
-      <form>
+      <form onSubmit={this.orderHandler}>
         {formElementsArray.map((formElement) => (
           <Input
             key={formElement.id}
@@ -119,9 +146,7 @@ class ContactData extends Component {
             changed={(e) => this.inputChangedHandler(e, formElement.id)}
           />
         ))}
-        <Button btnType='Success' clicked={this.orderHandler}>
-          Order
-        </Button>
+        <Button btnType='Success'>Order</Button>
       </form>
     );
     if (this.state.loading) {
