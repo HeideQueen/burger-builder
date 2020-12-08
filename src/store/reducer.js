@@ -1,4 +1,4 @@
-import { ADD_INGREDIENT, REMOVE_INGREDIENT } from './actions';
+import actionTypes from './actions';
 
 const initialState = {
   ingredients: {
@@ -12,7 +12,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case ADD_INGREDIENT:
+    case actionTypes.ADD_INGREDIENT:
       return {
         ...state,
         ingredients: {
@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1,
         },
       };
-    case REMOVE_INGREDIENT:
+    case actionTypes.REMOVE_INGREDIENT:
       return {
         ...state,
         ingredients: {
