@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import * as orderActions from '../../../store/actions/index';
 import axios from '../../../axios-orders';
 
 import Button from '../../../components/UI/Button/Button';
 import Input from '../../../components/UI/Input/Input';
 import Spinner from '../../../components/UI/Spinner/Spinner';
+
+import withErrorHandler from '../../../hoc/withErrorHandler/withErrorHandler';
 
 import classes from './ContactData.module.css';
 
@@ -106,23 +109,13 @@ class ContactData extends Component {
       ].value;
     }
 
-    this.setState({ loading: true });
-
     const order = {
       ingredients: this.props.ings,
       price: this.props.price,
       orderData: formData,
     };
 
-    axios
-      .post('/orders.json', order)
-      .then((res) => {
-        this.setState({ loading: false });
-        this.props.history.push('/');
-      })
-      .catch((err) => {
-        this.setState({ loading: false });
-      });
+    this.props.onPurchaseBurgerStart(order);
   };
 
   checkValidity(value, rules) {
@@ -216,4 +209,12 @@ const mapStateToProps = ({ ingredients, totalPrice }) => ({
   price: totalPrice,
 });
 
-export default connect(mapStateToProps)(ContactData);
+const mapDispatchToProps = (dispatch) => ({
+  onPurchaseBurgerStart: (orderData) =>
+    dispatch(orderActions.purchaseBurgerStart(orderData)),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(ContactData, axios));
