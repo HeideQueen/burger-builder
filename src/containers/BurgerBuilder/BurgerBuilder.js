@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import actionTypes from '../../store/actions';
+import actionTypes from '../../store/actions/actionTypes';
 
 import axios from '../../axios-orders';
 
