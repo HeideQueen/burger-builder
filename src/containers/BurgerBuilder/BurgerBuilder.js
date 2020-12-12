@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import actionTypes from '../../store/actions/actionTypes';
+import * as burgerBuilderActions from '../../store/actions/index';
 
 import axios from '../../axios-orders';
 
@@ -120,15 +120,9 @@ const mapStateToProps = ({ ingredients, totalPrice }) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onAddIngredient: (ingredientName) =>
-    dispatch({
-      type: actionTypes.ADD_INGREDIENT,
-      ingredientName: ingredientName,
-    }),
+    dispatch(burgerBuilderActions.addIngredient(ingredientName)),
   onRemoveIngredient: (ingredientName) =>
-    dispatch({
-      type: actionTypes.REMOVE_INGREDIENT,
-      ingredientName: ingredientName,
-    }),
+    dispatch(burgerBuilderActions.removeIngredient(ingredientName)),
 });
 
 export default connect(
