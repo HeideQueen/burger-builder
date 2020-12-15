@@ -115,7 +115,7 @@ class ContactData extends Component {
       orderData: formData,
     };
 
-    this.props.onPurchaseBurgerStart(order);
+    this.props.onPurchaseBurger(order);
   };
 
   checkValidity(value, rules) {
@@ -191,7 +191,7 @@ class ContactData extends Component {
       </form>
     );
 
-    if (this.state.loading) {
+    if (this.props.loading) {
       form = <Spinner />;
     }
 
@@ -204,14 +204,15 @@ class ContactData extends Component {
   }
 }
 
-const mapStateToProps = ({ ingredients, totalPrice }) => ({
+const mapStateToProps = ({ ingredients, totalPrice, loading }) => ({
   ings: ingredients,
   price: totalPrice,
+  loading: loading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onPurchaseBurgerStart: (orderData) =>
-    dispatch(orderActions.purchaseBurgerStart(orderData)),
+  onPurchaseBurger: (orderData) =>
+    dispatch(orderActions.purchaseBurger(orderData)),
 });
 
 export default connect(
