@@ -33,10 +33,12 @@ class Checkout extends Component {
       );
     }
 
-    return { summary };
+    return summary;
   }
 }
 
-const mapStateToProps = ({ ingredients }) => ({ ings: ingredients });
+const mapStateToProps = ({ burgerBuilder: { ingredients } }) => ({
+  ings: ingredients,
+});
 
 export default connect(mapStateToProps)(Checkout);
