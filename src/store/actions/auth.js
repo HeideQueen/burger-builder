@@ -6,9 +6,12 @@ export const authStart = () => ({
   type: actionTypes.AUTH_START,
 });
 
-export const authSuccess = (authData) => ({
+export const authSuccess = (token, userId) => ({
   type: actionTypes.AUTH_SUCCESS,
-  authData: authData,
+  payload: {
+    token,
+    userId,
+  },
 });
 
 export const authFail = (error) => ({
@@ -37,7 +40,7 @@ export const auth = (email, password, isSignup) => {
     try {
       const response = await axios.post(url, authData);
       console.log(response);
-      dispatch(authSuccess(response.data));
+      dispatch(authSuccess(response.data.idToken, response.data.localId));
     } catch (error) {
       console.log(error);
       dispatch(authFail(error));
