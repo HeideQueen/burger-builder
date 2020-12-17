@@ -20,7 +20,7 @@ export const auth = (email, password, isSignup) => {
   return async (dispatch) => {
     dispatch(authStart());
 
-    const API_KEY = 'AIzaSyCShp8D_tCcZhpCNgF5Wuk4llAiB0I2aIQ';
+    const API_KEY = process.env.REACT_APP_API_KEY;
 
     const authData = {
       email,
@@ -33,6 +33,7 @@ export const auth = (email, password, isSignup) => {
     if (!isSignup) {
       url = `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${API_KEY}`;
     }
+
     try {
       const response = await axios.post(url, authData);
       console.log(response);
