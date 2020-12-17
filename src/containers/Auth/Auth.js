@@ -40,6 +40,7 @@ class Auth extends Component {
         touched: false,
       },
     },
+    isSignup: true,
   };
 
   inputChangedHandler = (event, controlName) => {
@@ -79,10 +80,22 @@ class Auth extends Component {
   submitHandler = (event) => {
     event.preventDefault();
 
-    const email = this.state.controls.email.value;
-    const password = this.state.controls.password.value;
+    // Genius Destructuring right here people!
+    const {
+      isSignup,
+      controls: {
+        email: { value: email },
+        password: { value: password },
+      },
+    } = this.state;
 
-    this.props.onAuth(email, password);
+    this.props.onAuth(email, password, isSignup);
+  };
+
+  switchAuthModeHandler = () => {
+    this.setState((prevState) => ({
+      isSignup: !prevState.isSignup,
+    }));
   };
 
   render() {
@@ -112,15 +125,21 @@ class Auth extends Component {
       <div className={styles.Auth}>
         <form onSubmit={this.submitHandler}>
           {form}
-          <Button btnType='Success'>SUBMIT</Button>
+          <Button btnType='Success'>
+            {this.state.isSignup ? 'SIGN UP' : 'SIGN IN'}
+          </Button>
         </form>
+        <Button btnType='Danger' clicked={this.switchAuthModeHandler}>
+          {this.state.isSignup ? 'SWITCH TO SIGN IN' : 'SWITCH TO SIGN UP'}
+        </Button>
       </div>
     );
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  onAuth: (email, password) => dispatch(actions.auth(email, password)),
+  onAuth: (email, password, isSignup) =>
+    dispatch(actions.auth(email, password, isSignup)),
 });
 
 export default connect(null, mapDispatchToProps)(Auth);
