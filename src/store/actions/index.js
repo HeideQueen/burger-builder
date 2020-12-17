@@ -10,3 +10,5 @@ export {
   fetchOrders,
   fetchOrdersStart,
 } from './order';
+
+export { auth, authStart } from './auth';
