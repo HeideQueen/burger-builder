@@ -121,7 +121,6 @@ class Auth extends Component {
 
 const mapDispatchToProps = (dispatch) => ({
   onAuth: (email, password) => dispatch(actions.auth(email, password)),
-  onAuthStart: () => dispatch(actions.authStart()),
 });
 
 export default connect(null, mapDispatchToProps)(Auth);
