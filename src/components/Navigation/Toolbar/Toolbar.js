@@ -6,7 +6,7 @@ import Logo from '../../Logo/Logo';
 import NavigationItems from '../NavigationItems/NavigationItems';
 import DrawerToggle from '../SideDrawer/DrawerToggle/DrawerToggle';
 
-const Toolbar = ({ toggleMenu }) => {
+const Toolbar = ({ toggleMenu, isAuth }) => {
   return (
     <header className={classes.Toolbar}>
       <DrawerToggle clicked={toggleMenu} />
@@ -14,7 +14,7 @@ const Toolbar = ({ toggleMenu }) => {
         <Logo />
       </div>
       <nav className={classes.DesktopOnly}>
-        <NavigationItems />
+        <NavigationItems isAuthenticated={isAuth} />
       </nav>
     </header>
   );
