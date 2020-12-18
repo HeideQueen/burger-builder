@@ -207,15 +207,17 @@ class ContactData extends Component {
 const mapStateToProps = ({
   burgerBuilder: { ingredients, totalPrice },
   order: { loading },
+  auth: { token },
 }) => ({
   ings: ingredients,
   price: totalPrice,
-  loading: loading,
+  loading,
+  token,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onPurchaseBurger: (orderData) =>
-    dispatch(orderActions.purchaseBurger(orderData)),
+  onPurchaseBurger: (orderData, token) =>
+    dispatch(orderActions.purchaseBurger(orderData, token)),
 });
 
 export default connect(
