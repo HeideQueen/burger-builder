@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
-import * as burgerBuilderActions from '../../store/actions/index';
+import * as actions from '../../store/actions/index';
 
 import Burger from '../../components/Burger/Burger';
 import BuildControls from '../../components/Burger/BuildControls/BuildControls';
@@ -28,7 +28,12 @@ class BurgerBuilder extends Component {
   }
 
   purchaseHandler = () => {
-    this.setState({ purchasing: true });
+    if (this.props.isAuthenticated) {
+      this.setState({ purchasing: true });
+    } else {
+      this.props.onSetAuthRedirectPath('/checkout');
+      this.props.history.push('/auth');
+    }
   };
 
   purchaseCancelHandler = () => {
@@ -81,6 +86,7 @@ class BurgerBuilder extends Component {
             price={this.props.totalPrice}
             purchasable={this.updatePurchaseState(this.props.ings)}
             ordered={this.purchaseHandler}
+            isAuth={this.props.isAuthenticated}
           />
         </Fragment>
       );
@@ -102,19 +108,22 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = ({
   burgerBuilder: { ingredients, totalPrice, error },
+  auth: { token },
 }) => ({
   ings: ingredients,
   totalPrice: totalPrice,
   error: error,
+  isAuthenticated: token !== null,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onAddIngredient: (ingredientName) =>
-    dispatch(burgerBuilderActions.addIngredient(ingredientName)),
+    dispatch(actions.addIngredient(ingredientName)),
   onRemoveIngredient: (ingredientName) =>
-    dispatch(burgerBuilderActions.removeIngredient(ingredientName)),
-  onInitIngredients: () => dispatch(burgerBuilderActions.initIngredient()),
-  onInitPurchase: () => dispatch(burgerBuilderActions.initIngredient),
+    dispatch(actions.removeIngredient(ingredientName)),
+  onInitIngredients: () => dispatch(actions.initIngredient()),
+  onInitPurchase: () => dispatch(actions.initIngredient),
+  onSetAuthRedirectPath: (path) => dispatch(actions.setAuthRedirectPath(path)),
 });
 
 export default connect(
